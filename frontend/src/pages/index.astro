@@ -2,9 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArrowLink from '../components/ArrowLink.astro';
 import Eyebrow from '../components/Eyebrow.astro';
-import PhotoCard from '../components/PhotoCard.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import { featuredPhotos } from '../data/site';
+import PortfolioCategoryList from '../components/PortfolioCategoryList.astro';
+import { featuredPhotos, portfolioCategories } from '../data/site';
 ---
 <BaseLayout immersive>
   <section class="hero" aria-labelledby="hero-title">
@@ -19,12 +18,9 @@ import { featuredPhotos } from '../data/site';
     </div>
   </section>
 
-  <section class="selected-work section-rule" aria-labelledby="selected-title">
-    <SectionHeading title="A moving archive." headingId="selected-title" />
-    <div class="photo-grid">
-      {featuredPhotos.slice(1).map((photo, index) => <PhotoCard photo={photo} eager={index === 0} />)}
-    </div>
-    <div class="section-action"><ArrowLink href="/portfolio/">Explore the portfolio</ArrowLink></div>
+  <section class="work-index section-rule" aria-labelledby="work-index-title">
+    <h2 id="work-index-title">Explore the work.</h2>
+    <PortfolioCategoryList categories={portfolioCategories} />
   </section>
 
   <section class="statement section-rule" aria-labelledby="statement-title">

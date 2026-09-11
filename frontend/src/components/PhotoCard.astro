@@ -3,7 +3,7 @@ import type { Photo } from '../data/site';
 interface Props { photo: Photo; eager?: boolean }
 const { photo, eager = false } = Astro.props;
 ---
-<figure class:list={['photo-card', `photo-card--${photo.orientation}`]}>
+<figure id={photo.category.toLowerCase()} class:list={['photo-card', `photo-card--${photo.orientation}`]}>
   <div class="photo-card__image"><img src={photo.image} alt={photo.alt} width="900" height="1125" loading={eager ? 'eager' : 'lazy'} /></div>
   <figcaption>
     <span><strong>{photo.title}</strong><small>{photo.category}</small></span>
