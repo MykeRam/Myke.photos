@@ -2,6 +2,8 @@
 
 Myke.photos is a photography-first portfolio and publishing platform for Myke's visual work. It is intentionally separate from Myke.NYC so the photography can have its own identity, editorial voice, and room to grow into a focused creative business.
 
+**Website and canonical domain:** [myke.photos](https://myke.photos)
+
 The public experience is designed to feel minimal, quiet, and image-led: one strong opening photograph, an immediate flow into selected work, restrained typography, and very little interface competing with the images.
 
 ## Launch scope
