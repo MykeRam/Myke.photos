@@ -23,8 +23,16 @@ import { featuredPhotos, portfolioCategories } from '../data/site';
     <PortfolioCategoryList categories={portfolioCategories} />
   </section>
 
-  <section class="statement section-rule" aria-labelledby="statement-title">
-    <h2 id="statement-title">Photographs about atmosphere, place, and the details that stay with us.</h2>
-    <ArrowLink href="/about/">About Myke</ArrowLink>
+  <section class="statement section-rule" aria-label="About Myke">
+    <figure class="statement-portrait">
+      <img
+        src="/images/about-portrait-placeholder.jpg"
+        alt="An anonymous photographer holding a camera beside a studio window"
+        width="1024"
+        height="1280"
+        loading="lazy"
+      />
+    </figure>
+    <div class="statement-action"><ArrowLink href="/about/">About Myke</ArrowLink></div>
   </section>
 </BaseLayout>
