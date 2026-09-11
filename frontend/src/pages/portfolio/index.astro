@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PhotoCard from '../../components/PhotoCard.astro';
+import { featuredPhotos } from '../../data/site';
+---
+<BaseLayout title="Portfolio — Myke.photos" description="Selected photography by Myke, made in New York and beyond.">
+  <header class="page-intro">
+    <p class="eyebrow">Portfolio / Selected work</p>
+    <h1>Observations of light, place, and passing time.</h1>
+    <p class="page-intro__note">An evolving edit of independent and commissioned photographs.</p>
+  </header>
+  <section class="portfolio-grid" aria-label="Selected photographs">
+    {featuredPhotos.map((photo, index) => <PhotoCard photo={photo} eager={index < 2} />)}
+  </section>
+</BaseLayout>
