@@ -14,27 +14,15 @@ import { featuredPhotos, portfolioCategories } from '../data/site';
     <div class="hero-copy">
       <Eyebrow>Photography by Myke</Eyebrow>
       <h1 id="hero-title">Lorem ipsum dolor sit amet.</h1>
-      <ArrowLink href="/portfolio/" direction="down">View selected work</ArrowLink>
+      <div class="hero-actions">
+        <ArrowLink href="/portfolio/" direction="down">View selected work</ArrowLink>
+        <ArrowLink href="/about/">About Myke</ArrowLink>
+      </div>
     </div>
   </section>
 
   <section id="work" class="work-index section-rule" aria-labelledby="work-index-title">
     <h2 id="work-index-title">Explore the work.</h2>
     <PortfolioCategoryList categories={portfolioCategories} />
-  </section>
-
-  <section class="statement section-rule" aria-label="About Myke">
-    <div class="statement-profile">
-      <figure class="statement-portrait">
-        <img
-          src="/images/about-portrait-placeholder.jpg"
-          alt="An anonymous photographer holding a camera beside a studio window"
-          width="1024"
-          height="1280"
-          loading="lazy"
-        />
-      </figure>
-      <div class="statement-action"><ArrowLink href="/about/">About Myke</ArrowLink></div>
-    </div>
   </section>
 </BaseLayout>
