@@ -1,0 +1,8 @@
+---
+interface Props {
+  as?: 'p' | 'span';
+}
+
+const { as: Tag = 'p' } = Astro.props as Props;
+---
+<Tag class="eyebrow"><slot /></Tag>

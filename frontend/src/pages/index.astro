@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ArrowLink from '../components/ArrowLink.astro';
+import Eyebrow from '../components/Eyebrow.astro';
 import PhotoCard from '../components/PhotoCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
 import { featuredPhotos } from '../data/site';
 ---
 <BaseLayout>
@@ -10,26 +13,23 @@ import { featuredPhotos } from '../data/site';
       <figcaption>{featuredPhotos[0].location} · 2026</figcaption>
     </figure>
     <div class="hero-copy">
-      <p class="eyebrow">Photography by Myke</p>
+      <Eyebrow>Photography by Myke</Eyebrow>
       <h1 id="hero-title">Images for the spaces between things.</h1>
-      <a class="arrow-link" href="/portfolio/">View selected work <span aria-hidden="true">↘</span></a>
+      <ArrowLink href="/portfolio/" direction="down">View selected work</ArrowLink>
     </div>
   </section>
 
   <section class="selected-work section-rule" aria-labelledby="selected-title">
-    <div class="section-intro">
-      <p class="eyebrow">01 / Selected work</p>
-      <h2 id="selected-title">A moving archive.</h2>
-    </div>
+    <SectionHeading eyebrow="01 / Selected work" title="A moving archive." headingId="selected-title" />
     <div class="photo-grid">
       {featuredPhotos.slice(1).map((photo, index) => <PhotoCard photo={photo} eager={index === 0} />)}
     </div>
-    <div class="section-action"><a class="arrow-link" href="/portfolio/">Explore the portfolio <span aria-hidden="true">→</span></a></div>
+    <div class="section-action"><ArrowLink href="/portfolio/">Explore the portfolio</ArrowLink></div>
   </section>
 
   <section class="statement section-rule" aria-labelledby="statement-title">
-    <p class="eyebrow">02 / Practice</p>
+    <Eyebrow>02 / Practice</Eyebrow>
     <h2 id="statement-title">Photographs about atmosphere, place, and the details that stay with us.</h2>
-    <a class="arrow-link" href="/about/">About Myke <span aria-hidden="true">→</span></a>
+    <ArrowLink href="/about/">About Myke</ArrowLink>
   </section>
 </BaseLayout>

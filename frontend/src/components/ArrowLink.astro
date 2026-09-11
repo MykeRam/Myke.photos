@@ -1,0 +1,10 @@
+---
+interface Props {
+  href: string;
+  direction?: 'right' | 'down';
+}
+
+const { href, direction = 'right' } = Astro.props;
+const arrow = direction === 'down' ? '↘' : '→';
+---
+<a class="arrow-link" href={href}><slot /> <span aria-hidden="true">{arrow}</span></a>

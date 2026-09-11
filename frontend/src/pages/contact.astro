@@ -1,10 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
 ---
 <BaseLayout title="Contact — Myke.photos" description="Contact Myke about photography commissions, portraits, and collaborations.">
   <section class="contact-page">
-    <p class="eyebrow">Contact / Inquiries</p>
-    <h1>Have a story, person, or place in mind?</h1>
+    <PageIntro eyebrow="Contact / Inquiries" title="Have a story, person, or place in mind?" />
     <div class="contact-details section-rule">
       <div><p class="detail-label">Email</p><a href="mailto:hello@myke.photos">hello@myke.photos</a></div>
       <div><p class="detail-label">Based in</p><p>New York, NY<br />Available worldwide</p></div>

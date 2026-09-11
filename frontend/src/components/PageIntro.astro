@@ -1,0 +1,16 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  note?: string;
+}
+
+const { eyebrow, title, note } = Astro.props;
+---
+<header class="page-intro">
+  <Eyebrow>{eyebrow}</Eyebrow>
+  <h1>{title}</h1>
+  {note && <p class="page-intro__note">{note}</p>}
+</header>
