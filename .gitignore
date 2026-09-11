@@ -1,0 +1,22 @@
+# Dependencies and build output
+node_modules/
+dist/
+.astro/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local tooling
+.DS_Store
+.vscode/
+*.log
+
+# Go build artifacts
+backend/myke-photos
+coverage.out
+
+# Codex working directories
+work/
+outputs/

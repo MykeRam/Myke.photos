@@ -1,0 +1,16 @@
+---
+interface Props { title?: string }
+const { title = 'Myke.photos — Photography by Myke' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Photography by Myke — selected work, visual studies, and commissioned stories." />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
