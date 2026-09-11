@@ -6,7 +6,7 @@ import PhotoCard from '../components/PhotoCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { featuredPhotos } from '../data/site';
 ---
-<BaseLayout>
+<BaseLayout immersive>
   <section class="hero" aria-labelledby="hero-title">
     <figure class="hero-media">
       <img src={featuredPhotos[0].image} alt={featuredPhotos[0].alt} width="1200" height="1500" fetchpriority="high" />

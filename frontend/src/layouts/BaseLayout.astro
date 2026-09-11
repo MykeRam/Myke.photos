@@ -6,11 +6,13 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  immersive?: boolean;
 }
 
 const {
   title = 'Myke.photos — Photography by Myke',
-  description = 'Photography by Myke — selected work, visual studies, and commissioned stories.'
+  description = 'Photography by Myke — selected work, visual studies, and commissioned stories.',
+  immersive = false
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -31,7 +33,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="page-shell">
+    <div class:list={['page-shell', { 'page-shell--immersive': immersive }]}>
       <SiteHeader />
       <main id="main-content"><slot /></main>
       <SiteFooter />
