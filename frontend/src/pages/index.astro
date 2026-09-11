@@ -20,7 +20,7 @@ import { featuredPhotos } from '../data/site';
   </section>
 
   <section class="selected-work section-rule" aria-labelledby="selected-title">
-    <SectionHeading eyebrow="01 / Selected work" title="A moving archive." headingId="selected-title" />
+    <SectionHeading title="A moving archive." headingId="selected-title" />
     <div class="photo-grid">
       {featuredPhotos.slice(1).map((photo, index) => <PhotoCard photo={photo} eager={index === 0} />)}
     </div>
@@ -28,7 +28,6 @@ import { featuredPhotos } from '../data/site';
   </section>
 
   <section class="statement section-rule" aria-labelledby="statement-title">
-    <Eyebrow>02 / Practice</Eyebrow>
     <h2 id="statement-title">Photographs about atmosphere, place, and the details that stay with us.</h2>
     <ArrowLink href="/about/">About Myke</ArrowLink>
   </section>
