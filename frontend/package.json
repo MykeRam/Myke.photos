@@ -6,12 +6,17 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "dependencies": {
     "@astrojs/check": "latest",
     "astro": "latest",
     "typescript": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "3.9.6",
+    "prettier-plugin-astro": "1.0.0"
+  }
 }

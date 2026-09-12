@@ -7,12 +7,15 @@ interface Props {
 
 const { categories } = Astro.props;
 ---
+
 <nav class="category-list" aria-label="Explore photography by category">
   {categories.map((category) => (
     <a class="category-link" href={`/portfolio/#${category.slug}`}>
       <span class="category-link__title">{category.title}</span>
       <span class="category-link__description">{category.description}</span>
-      <span class="category-link__arrow" aria-hidden="true">↗</span>
+      <span class="category-link__arrow" aria-hidden="true">
+        ↗
+      </span>
     </a>
   ))}
 </nav>

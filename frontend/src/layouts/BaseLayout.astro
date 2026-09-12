@@ -12,10 +12,11 @@ interface Props {
 const {
   title = 'Myke.photos — Photography by Myke',
   description = 'Photography by Myke — selected work, visual studies, and commissioned stories.',
-  immersive = false
+  immersive = false,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -32,10 +33,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <title>{title}</title>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content">
+      Skip to content
+    </a>
     <div class:list={['page-shell', { 'page-shell--immersive': immersive }]}>
       <SiteHeader />
-      <main id="main-content"><slot /></main>
+      <main id="main-content">
+        <slot />
+      </main>
       <SiteFooter />
     </div>
   </body>

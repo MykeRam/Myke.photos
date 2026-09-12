@@ -5,17 +5,26 @@ import Eyebrow from '../components/Eyebrow.astro';
 import PortfolioCategoryList from '../components/PortfolioCategoryList.astro';
 import { featuredPhotos, portfolioCategories } from '../data/site';
 ---
+
 <BaseLayout immersive>
   <section class="hero" aria-labelledby="hero-title">
     <figure class="hero-media">
-      <img src={featuredPhotos[0].image} alt={featuredPhotos[0].alt} width="1200" height="1500" fetchpriority="high" />
+      <img
+        src={featuredPhotos[0].image}
+        alt={featuredPhotos[0].alt}
+        width="1200"
+        height="1500"
+        fetchpriority="high"
+      />
       <figcaption>{featuredPhotos[0].location} · 2026</figcaption>
     </figure>
     <div class="hero-copy">
       <Eyebrow>Photography by Myke</Eyebrow>
       <h1 id="hero-title">Lorem ipsum dolor sit amet.</h1>
       <div class="hero-actions">
-        <ArrowLink href="/portfolio/" direction="down">View selected work</ArrowLink>
+        <ArrowLink href="/portfolio/" direction="down">
+          View selected work
+        </ArrowLink>
         <ArrowLink href="/about/">About Myke</ArrowLink>
       </div>
     </div>

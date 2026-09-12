@@ -9,6 +9,7 @@ interface Props {
 
 const { eyebrow, title, headingId } = Astro.props;
 ---
+
 <div class:list={['section-intro', { 'section-intro--solo': !eyebrow }]}>
   {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
   <h2 id={headingId}>{title}</h2>
