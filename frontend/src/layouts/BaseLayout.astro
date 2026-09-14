@@ -1,6 +1,7 @@
 ---
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
+import { ClientRouter, fade } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -30,6 +31,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={canonicalURL} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <ClientRouter />
     <title>{title}</title>
   </head>
   <body>
@@ -38,7 +40,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </a>
     <div class:list={['page-shell', { 'page-shell--immersive': immersive }]}>
       <SiteHeader />
-      <main id="main-content">
+      <main id="main-content" transition:animate={fade({ duration: '0.4s' })}>
         <slot />
       </main>
       <SiteFooter />

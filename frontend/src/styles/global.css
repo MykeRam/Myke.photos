@@ -326,6 +326,7 @@ a:focus-visible {
 }
 .about-intro { min-height: 58vh; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 10vh 0 9vh; }
 .about-intro .eyebrow { align-self: flex-start; }
+.about-anchor { align-self: flex-start; }
 .about-portrait { width: clamp(13rem, 20vw, 20rem); margin: 1.25rem 0 0; overflow: hidden; background: #d8d4cb; }
 .about-portrait img { aspect-ratio: 4 / 5; object-fit: cover; }
 .portfolio-grid {

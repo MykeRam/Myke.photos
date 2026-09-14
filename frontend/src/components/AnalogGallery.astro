@@ -67,7 +67,7 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
   </div>
 </div>
 
-<script define:vars={{ images }}>
+<script define:vars={{ images }} data-astro-rerun>
   const root = document.querySelector('[data-gallery]');
   const items = [...root.querySelectorAll('.item')];
   const lightbox = root.querySelector('[data-lightbox]');
