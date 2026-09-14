@@ -45,9 +45,22 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </main>
       <SiteFooter />
     </div>
+    <button class="back-to-top" type="button" data-site-top aria-label="Back to top" aria-hidden="true">↑</button>
   </body>
 </html>
 
-<script>
+<script data-astro-rerun>
   document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+  const topButton = document.querySelector('[data-site-top]');
+  const updateTopButton = () => {
+    const isVisible = (window.scrollY || document.documentElement.scrollTop) > 48;
+    topButton.classList.toggle('is-visible', isVisible);
+    topButton.setAttribute('aria-hidden', String(!isVisible));
+    topButton.tabIndex = isVisible ? 0 : -1;
+  };
+
+  updateTopButton();
+  window.addEventListener('scroll', updateTopButton, { passive: true });
+  topButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>

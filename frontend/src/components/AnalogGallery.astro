@@ -57,8 +57,6 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
     ))}
   </div>
 
-  <button class="back-to-top" type="button" data-top aria-label="Back to top" aria-hidden="true">↑</button>
-
   <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Analog photograph viewer">
     <button class="lightbox-nav lightbox-nav--prev" type="button" data-prev aria-label="Previous photograph">←</button>
     <button class="lightbox-close" type="button" data-close>Close</button>
@@ -107,15 +105,6 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
   root.querySelector('[data-next]').addEventListener('click', () => show(active + 1));
   lightbox.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
   document.addEventListener('keydown', (event) => { if (lightbox.hidden) return; if (event.key === 'Escape') close(); if (event.key === 'ArrowLeft') show(active - 1); if (event.key === 'ArrowRight') show(active + 1); });
-  const topButton = root.querySelector('[data-top]');
-  const updateTopButton = () => {
-    const isVisible = (window.scrollY || document.documentElement.scrollTop) > 48;
-    topButton.classList.toggle('is-visible', isVisible);
-    topButton.setAttribute('aria-hidden', String(!isVisible));
-    topButton.tabIndex = isVisible ? 0 : -1;
-  };
-  updateTopButton();
-  window.addEventListener('scroll', updateTopButton, { passive: true });
   const applyFilters = () => {
     selected = items.filter((item) => (activeCamera === 'All' || item.dataset.parent === activeCamera) && (!activeStock || item.dataset.child === activeStock));
     items.forEach((item) => { item.hidden = !selected.includes(item); });
@@ -138,5 +127,4 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
     root.querySelectorAll('[data-stock]').forEach((filter) => filter.classList.remove('active'));
     button.classList.add('active'); activeStock = button.dataset.stock; applyFilters();
   }));
-  topButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
