@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArrowLink from '../components/ArrowLink.astro';
-import PageIntro from '../components/PageIntro.astro';
+import Eyebrow from '../components/Eyebrow.astro';
 ---
 
 <BaseLayout title="About — Myke.photos" description="About Myke and his photographic practice.">
   <article class="editorial-page">
-    <PageIntro eyebrow="About / Myke" title="Looking closely at the world as it changes." />
+    <header class="about-intro">
+      <Eyebrow>About / Myke</Eyebrow>
+      <figure class="about-portrait">
+        <img src="/images/about-portrait-placeholder.jpg" alt="Portrait of Myke" width="1122" height="1402" />
+      </figure>
+    </header>
     <div class="editorial-grid section-rule">
-      <p class="editorial-lead">
-        Myke is a New York–based photographer drawn to atmosphere, overlooked gestures, and the
-        character of a place.
-      </p>
+      <p class="editorial-lead">Myke is a New York–based photographer.</p>
       <div class="editorial-body">
         <p>
           The work moves between street observation, portraiture, and visual studies. Whether
