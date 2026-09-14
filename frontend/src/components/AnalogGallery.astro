@@ -33,7 +33,7 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
 <div class="analog-gallery" data-gallery>
   <div class="gallery-heading">
     <div>
-      <p class="eyebrow">Photography / Analog</p>
+      <p class="eyebrow">Photography / Just for fun</p>
       <h1>Frames from the everyday.</h1>
     </div>
     <p class="gallery-note">A living archive of film photographs, organized by camera and stock.</p>
@@ -51,18 +51,18 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
     {images.map((image, index) => (
       <figure class="item item--square" data-parent={image.parent} data-child={image.child} data-index={index}>
         <button class="item-btn" type="button" aria-label={`Open analog photograph ${index + 1}`} data-open={index}>
-          <img src={image.thumb} alt={`Analog photograph from ${image.parent} using ${image.child}`} loading={index < 8 ? 'eager' : 'lazy'} />
+          <img src={image.thumb} alt={`Analog photograph from ${image.parent} using ${image.child}`} loading={index < 8 ? 'eager' : 'lazy'} draggable="false" />
         </button>
       </figure>
     ))}
   </div>
 
-  <button class="back-to-top" type="button" data-top aria-label="Back to top">↑</button>
+  <button class="back-to-top" type="button" data-top aria-label="Back to top" aria-hidden="true">↑</button>
 
   <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Analog photograph viewer">
     <button class="lightbox-nav lightbox-nav--prev" type="button" data-prev aria-label="Previous photograph">←</button>
     <button class="lightbox-close" type="button" data-close>Close</button>
-    <img class="lightbox-image" data-lightbox-image alt="" />
+    <img class="lightbox-image" data-lightbox-image alt="" draggable="false" />
     <button class="lightbox-nav lightbox-nav--next" type="button" data-next aria-label="Next photograph">→</button>
   </div>
 </div>
@@ -100,11 +100,22 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
   };
   const close = () => { lightbox.hidden = true; document.body.style.overflow = ''; };
   root.querySelectorAll('[data-open]').forEach((button) => button.addEventListener('click', () => show(selected.indexOf(button.closest('.item')))));
+  root.querySelectorAll('.item img').forEach((image) => image.addEventListener('contextmenu', (event) => event.preventDefault()));
+  lightboxImage.addEventListener('contextmenu', (event) => event.preventDefault());
   root.querySelector('[data-close]').addEventListener('click', close);
   root.querySelector('[data-prev]').addEventListener('click', () => show(active - 1));
   root.querySelector('[data-next]').addEventListener('click', () => show(active + 1));
   lightbox.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
   document.addEventListener('keydown', (event) => { if (lightbox.hidden) return; if (event.key === 'Escape') close(); if (event.key === 'ArrowLeft') show(active - 1); if (event.key === 'ArrowRight') show(active + 1); });
+  const topButton = root.querySelector('[data-top]');
+  const updateTopButton = () => {
+    const isVisible = (window.scrollY || document.documentElement.scrollTop) > 48;
+    topButton.classList.toggle('is-visible', isVisible);
+    topButton.setAttribute('aria-hidden', String(!isVisible));
+    topButton.tabIndex = isVisible ? 0 : -1;
+  };
+  updateTopButton();
+  window.addEventListener('scroll', updateTopButton, { passive: true });
   const applyFilters = () => {
     selected = items.filter((item) => (activeCamera === 'All' || item.dataset.parent === activeCamera) && (!activeStock || item.dataset.child === activeStock));
     items.forEach((item) => { item.hidden = !selected.includes(item); });
@@ -127,5 +138,5 @@ const filmStocks = [...new Set(images.map((image) => image.child))].sort();
     root.querySelectorAll('[data-stock]').forEach((filter) => filter.classList.remove('active'));
     button.classList.add('active'); activeStock = button.dataset.stock; applyFilters();
   }));
-  root.querySelector('[data-top]').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  topButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>

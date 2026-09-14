@@ -1,7 +1,7 @@
 export type Photo = {
   slug: string;
   title: string;
-  category: PortfolioCategory['title'];
+  category: string;
   location: string;
   image: string;
   alt: string;
@@ -9,26 +9,21 @@ export type Photo = {
 };
 
 export type PortfolioCategory = {
-  slug: 'analog' | 'editorial' | 'street';
-  title: 'Analog' | 'Editorial' | 'On street';
+  slug: 'just-for-fun' | 'selected';
+  title: 'Just for fun' | 'Selected work';
   description: string;
 };
 
 export const portfolioCategories: PortfolioCategory[] = [
   {
-    slug: 'analog',
-    title: 'Analog',
+    slug: 'just-for-fun',
+    title: 'Just for fun',
     description: 'Film photographs shaped by grain, patience, and chance.',
   },
   {
-    slug: 'editorial',
-    title: 'Editorial',
-    description: 'Portraits, assignments, and commissioned stories.',
-  },
-  {
-    slug: 'street',
-    title: 'On street',
-    description: 'Unscripted observations from New York and elsewhere.',
+    slug: 'selected',
+    title: 'Selected work',
+    description: 'Polished, intentional photographs chosen for their point of view.',
   },
 ];
 
