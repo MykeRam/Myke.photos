@@ -1,0 +1,131 @@
+---
+const thumbModules = import.meta.glob('/src/assets/gallery/thumbs/**/*-thumb.webp', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
+const fullModules = import.meta.glob('/src/assets/gallery/full/**/*-large.webp', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
+
+const stripVariant = (path: string, variant: string) => path.replace(variant, '').replace(/\.[^.]+$/, '');
+const getPath = (path: string, root: string) => path.split(`/src/assets/gallery/${root}/`)[1];
+const thumbs = new Map();
+const fulls = new Map();
+
+for (const [path, src] of Object.entries(thumbModules)) thumbs.set(stripVariant(getPath(path, 'thumbs'), '-thumb'), src);
+for (const [path, src] of Object.entries(fullModules)) fulls.set(stripVariant(getPath(path, 'full'), '-large'), src);
+
+const images = [...thumbs.keys()]
+  .map((key) => {
+    const parts = key.split('/');
+    return { key, thumb: thumbs.get(key), full: fulls.get(key), parent: parts[0], child: parts[1] };
+  })
+  .filter((image) => image.thumb && image.full)
+  .sort((a, b) => a.key.localeCompare(b.key));
+
+const cameras = [...new Set(images.map((image) => image.parent))].sort();
+const filmStocks = [...new Set(images.map((image) => image.child))].sort();
+---
+
+<div class="analog-gallery" data-gallery>
+  <div class="gallery-heading">
+    <div>
+      <p class="eyebrow">Photography / Analog</p>
+      <h1>Frames from the everyday.</h1>
+    </div>
+    <p class="gallery-note">A living archive of film photographs, organized by camera and stock.</p>
+  </div>
+
+  <div class="filters" aria-label="Filter analog photographs">
+    <button class="filter active" type="button" data-filter="All">All</button>
+    {cameras.map((camera) => <button class="filter" type="button" data-filter={camera}>{camera}</button>)}
+  </div>
+  <div class="filters subfilters" aria-label="Filter by film stock" data-stock-filters hidden>
+    {filmStocks.map((stock) => <button class="filter" type="button" data-stock={stock}>{stock}</button>)}
+  </div>
+
+  <div class="grid" data-grid>
+    {images.map((image, index) => (
+      <figure class="item item--square" data-parent={image.parent} data-child={image.child} data-index={index}>
+        <button class="item-btn" type="button" aria-label={`Open analog photograph ${index + 1}`} data-open={index}>
+          <img src={image.thumb} alt={`Analog photograph from ${image.parent} using ${image.child}`} loading={index < 8 ? 'eager' : 'lazy'} />
+        </button>
+      </figure>
+    ))}
+  </div>
+
+  <button class="back-to-top" type="button" data-top aria-label="Back to top">↑</button>
+
+  <div class="lightbox" data-lightbox hidden role="dialog" aria-modal="true" aria-label="Analog photograph viewer">
+    <button class="lightbox-nav lightbox-nav--prev" type="button" data-prev aria-label="Previous photograph">←</button>
+    <button class="lightbox-close" type="button" data-close>Close</button>
+    <img class="lightbox-image" data-lightbox-image alt="" />
+    <button class="lightbox-nav lightbox-nav--next" type="button" data-next aria-label="Next photograph">→</button>
+  </div>
+</div>
+
+<script define:vars={{ images }}>
+  const root = document.querySelector('[data-gallery]');
+  const items = [...root.querySelectorAll('.item')];
+  const lightbox = root.querySelector('[data-lightbox]');
+  const lightboxImage = root.querySelector('[data-lightbox-image]');
+  let active = 0;
+  let selected = items;
+  let activeCamera = 'All';
+  let activeStock = null;
+
+  const spanClass = (ratio, index) => {
+    if (ratio >= 1.75) return index % 9 === 1 ? 'item--feature-wide' : 'item--wide';
+    if (ratio >= 1.12) return index % 11 === 1 ? 'item--feature-landscape' : index % 7 === 4 ? 'item--medium-landscape' : 'item--landscape';
+    if (ratio <= 0.68) return index % 6 === 0 ? 'item--feature-portrait' : 'item--portrait-tall';
+    if (ratio <= 0.95) return index % 8 === 3 ? 'item--portrait-emphasis' : 'item--portrait';
+    return index % 10 === 5 ? 'item--square-large' : 'item--square';
+  };
+
+  items.forEach((item, index) => {
+    const image = item.querySelector('img');
+    image.addEventListener('load', () => item.classList.add(spanClass(image.naturalWidth / image.naturalHeight, index)));
+    if (image.complete) image.dispatchEvent(new Event('load'));
+  });
+
+  const show = (index) => {
+    active = (index + selected.length) % selected.length;
+    lightboxImage.src = images[Number(selected[active].dataset.index)].full;
+    lightboxImage.alt = selected[active].querySelector('img').alt;
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => { lightbox.hidden = true; document.body.style.overflow = ''; };
+  root.querySelectorAll('[data-open]').forEach((button) => button.addEventListener('click', () => show(selected.indexOf(button.closest('.item')))));
+  root.querySelector('[data-close]').addEventListener('click', close);
+  root.querySelector('[data-prev]').addEventListener('click', () => show(active - 1));
+  root.querySelector('[data-next]').addEventListener('click', () => show(active + 1));
+  lightbox.addEventListener('click', (event) => { if (event.target === lightbox) close(); });
+  document.addEventListener('keydown', (event) => { if (lightbox.hidden) return; if (event.key === 'Escape') close(); if (event.key === 'ArrowLeft') show(active - 1); if (event.key === 'ArrowRight') show(active + 1); });
+  const applyFilters = () => {
+    selected = items.filter((item) => (activeCamera === 'All' || item.dataset.parent === activeCamera) && (!activeStock || item.dataset.child === activeStock));
+    items.forEach((item) => { item.hidden = !selected.includes(item); });
+  };
+  root.querySelectorAll('[data-filter]').forEach((button) => button.addEventListener('click', () => {
+    root.querySelectorAll('[data-filter]').forEach((filter) => filter.classList.remove('active'));
+    button.classList.add('active'); activeCamera = button.dataset.filter;
+    const stockFilters = root.querySelector('[data-stock-filters]');
+    const stocksForCamera = [...new Set(items.filter((item) => item.dataset.parent === activeCamera).map((item) => item.dataset.child))];
+    root.querySelectorAll('[data-stock]').forEach((stockButton) => {
+      const visible = activeCamera !== 'All' && stocksForCamera.includes(stockButton.dataset.stock);
+      stockButton.hidden = !visible;
+      stockButton.classList.toggle('active', visible && stockButton.dataset.stock === stocksForCamera[0]);
+    });
+    activeStock = activeCamera === 'All' ? null : stocksForCamera[0] || null;
+    stockFilters.hidden = activeCamera === 'All' || stocksForCamera.length === 0;
+    applyFilters();
+  }));
+  root.querySelectorAll('[data-stock]').forEach((button) => button.addEventListener('click', () => {
+    root.querySelectorAll('[data-stock]').forEach((filter) => filter.classList.remove('active'));
+    button.classList.add('active'); activeStock = button.dataset.stock; applyFilters();
+  }));
+  root.querySelector('[data-top]').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>

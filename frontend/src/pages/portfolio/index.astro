@@ -1,22 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArrowLink from '../../components/ArrowLink.astro';
 import PageIntro from '../../components/PageIntro.astro';
-import PhotoCard from '../../components/PhotoCard.astro';
-import { featuredPhotos } from '../../data/site';
 ---
 
-<BaseLayout
-  title="Portfolio — Myke.photos"
-  description="Selected photography by Myke, made in New York and beyond."
->
-  <PageIntro
-    eyebrow="Portfolio / Selected work"
-    title="Observations of light, place, and passing time."
-    note="An evolving edit of independent and commissioned photographs."
-  />
-  <section class="portfolio-grid" aria-label="Selected photographs">
-    {featuredPhotos.map((photo, index) => (
-      <PhotoCard photo={photo} eager={index < 2} />
-    ))}
+<BaseLayout title="Portfolio — Myke.photos" description="Photography categories by Myke.">
+  <PageIntro eyebrow="Portfolio / Categories" title="A place for every kind of looking." note="Browse the work by practice, format, and point of view." />
+  <section class="portfolio-route-list" aria-label="Portfolio categories">
+    <ArrowLink href="/portfolio/analog/">Analog</ArrowLink>
+    <ArrowLink href="/portfolio/editorial/">Editorial</ArrowLink>
+    <ArrowLink href="/portfolio/street/">On street</ArrowLink>
   </section>
 </BaseLayout>

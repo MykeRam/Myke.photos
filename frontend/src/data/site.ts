@@ -9,12 +9,17 @@ export type Photo = {
 };
 
 export type PortfolioCategory = {
-  slug: 'editorial' | 'street' | 'analog';
-  title: 'Editorial' | 'Street' | 'Analog';
+  slug: 'analog' | 'editorial' | 'street';
+  title: 'Analog' | 'Editorial' | 'On street';
   description: string;
 };
 
 export const portfolioCategories: PortfolioCategory[] = [
+  {
+    slug: 'analog',
+    title: 'Analog',
+    description: 'Film photographs shaped by grain, patience, and chance.',
+  },
   {
     slug: 'editorial',
     title: 'Editorial',
@@ -22,13 +27,8 @@ export const portfolioCategories: PortfolioCategory[] = [
   },
   {
     slug: 'street',
-    title: 'Street',
+    title: 'On street',
     description: 'Unscripted observations from New York and elsewhere.',
-  },
-  {
-    slug: 'analog',
-    title: 'Analog',
-    description: 'Photographs shaped by grain, patience, and chance.',
   },
 ];
 
@@ -45,7 +45,7 @@ export const featuredPhotos: Photo[] = [
   {
     slug: 'between-departures',
     title: 'Between departures',
-    category: 'Street',
+    category: 'On street',
     location: 'New York, NY',
     image: '/images/study-01.svg',
     alt: 'A cinematic study of shape and light at dusk',
