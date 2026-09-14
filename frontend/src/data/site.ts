@@ -18,12 +18,12 @@ export const portfolioCategories: PortfolioCategory[] = [
   {
     slug: 'just-for-fun',
     title: 'Just for fun',
-    description: 'Film photographs shaped by grain, patience, and chance.',
+    description: 'Fun every day snaps of my life',
   },
   {
     slug: 'selected',
     title: 'Selected work',
-    description: 'Polished, intentional photographs chosen for their point of view.',
+    description: '✨',
   },
 ];
 

@@ -31,7 +31,32 @@ import { featuredPhotos, portfolioCategories } from '../data/site';
   </section>
 
   <section id="work" class="work-index section-rule" aria-labelledby="work-index-title">
-    <h2 id="work-index-title">Explore the work.</h2>
+    <div class="work-index-heading">
+      <h2 id="work-index-title">Explore the work.</h2>
+      <svg class="work-index-arrow" viewBox="0 0 430 170" aria-hidden="true">
+        <path class="work-index-arrow__path" d="M76 20C75 73 105 84 173 101C224 114 263 105 271 73C276 52 254 43 226 46C193 50 195 93 232 109C273 127 326 104 345 69C357 47 371 34 405 31" />
+        <path class="work-index-arrow__head" d="M376 18C391 21 401 25 405 31C398 38 389 44 378 47" />
+      </svg>
+      <svg class="work-index-smiley" viewBox="0 0 160 100" aria-hidden="true">
+        <path class="work-index-smiley__eye work-index-smiley__eye--left" d="M35 17L56 47" />
+        <path class="work-index-smiley__eye work-index-smiley__eye--right" d="M65 10L86 41" />
+        <path class="work-index-smiley__mouth" d="M20 70C49 74 76 80 91 67C104 56 104 40 103 29" />
+      </svg>
+    </div>
     <PortfolioCategoryList categories={portfolioCategories} />
   </section>
 </BaseLayout>
+
+<script>
+  const workIndex = document.querySelector('#work');
+  if (workIndex) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        workIndex.classList.add('is-visible');
+      } else {
+        workIndex.classList.remove('is-visible');
+      }
+    }, { threshold: 0.35 });
+    observer.observe(workIndex);
+  }
+</script>
